@@ -80,9 +80,22 @@ function contains(item, list, cb) {
 contains('yo-yo', items, check => console.log(check));
 
 /* STRETCH PROBLEM */
+const dupedItems = [0, 0, 1, 1, 2, 2, 3, 3, 4, 4];
 
 function removeDuplicates(array, cb) {
+  let singleItems = [];
+  let i, arrLen = array.length;
   // removeDuplicates removes all duplicate values from the given array.
   // Pass the duplicate free array to the callback function.
   // Do not mutate the original array.
+
+  for (i = 0; i < arrLen; i++) {
+    if (!singleItems.includes(array[i])) {
+      singleItems.push(array[i]);
+    }
+  }
+
+  return cb(singleItems);
 }
+
+removeDuplicates(dupedItems, unDuped => console.log(unDuped));
