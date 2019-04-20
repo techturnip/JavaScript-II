@@ -484,7 +484,61 @@ console.log(ticketPriceTotal);
 // Now that you have used .forEach(), .map(), .filter(), and .reduce().  I want you to think of potential problems you could solve given the data set and the 5k fun run theme.  Try to create and then solve 3 unique problems using one or many of the array methods listed above.
 
 // Problem 1
+// Create a reusable function that takes in an array of people and will generate an emailList to thank donors for current and future events.
+function createThankYouList(arr) {
+  let emailList = [];
+  let donorList = arr.filter(donor => donor.donation !== 0);
+  donorList.forEach(person => {
+    let newObj = {
+      fullname: person.first_name + ' ' + person.last_name,
+      email: person.email,
+      donation: person.donation,
+      greeting: function () {
+        console.log(`Hello ${person.first_name}! Thank you for your contribution. We greatly appreciate your donation of $${person.donation}`)
+      }
+    }
+
+    emailList.push(newObj);
+  });
+
+  return emailList;
+}
+
+console.log(createThankYouList(runners));
 
 // Problem 2
+// Create a new array that shows how many shirts to order for each size
+let shirtsToOrder = []
+runners.forEach(runner => {
+  orderObj = {}
+  let xxlCounter, xlCounter, lCounter, mCounter, sCounter, xsCounter = 0;
+  if (runner.shirt_size === '2XL') {
+    xxlCounter + 1;
+  } else if (runner.shirt_size === 'XL') {
+    xlCounter + 1;
+  } else if (runner.shirt_size === 'L') {
+    lCounter + 1;
+  } else if (runner.shirt_size === 'M') {
+    mCounter + 1;
+  } else if (runner.shirt_size === 'S') {
+    sCounter + 1;
+  } else if (runner.shirt_size === 'XS') {
+    xsCounter + 1;
+  }
+  console.log(orderObj);
+  return orderObj = {
+    XXL: xxlCounter,
+    XL: xlCounter,
+    L: lCounter,
+    M: mCounter,
+    S: sCounter,
+    XS: xsCounter
+  };
+
+});
+
+
+
+
 
 // Problem 3
