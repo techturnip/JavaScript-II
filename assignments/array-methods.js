@@ -484,61 +484,46 @@ console.log(ticketPriceTotal);
 // Now that you have used .forEach(), .map(), .filter(), and .reduce().  I want you to think of potential problems you could solve given the data set and the 5k fun run theme.  Try to create and then solve 3 unique problems using one or many of the array methods listed above.
 
 // Problem 1
-// Create a reusable function that takes in an array of people and will generate an emailList to thank donors for current and future events.
-function createThankYouList(arr) {
+// Create a reusable function that takes in an array of people and will generate an emailList to thank donors of certain amounts for current and future events.
+function createThankYouList(arr, donSize) {
   let emailList = [];
-  let donorList = arr.filter(donor => donor.donation !== 0);
-  donorList.forEach(person => {
+  arr.filter(donor => donor.donation >= donSize).forEach(person => {
     let newObj = {
       fullname: person.first_name + ' ' + person.last_name,
       email: person.email,
-      donation: person.donation,
-      greeting: function () {
-        console.log(`Hello ${person.first_name}! Thank you for your contribution. We greatly appreciate your donation of $${person.donation}`)
-      }
+      donation: person.donation
     }
-
     emailList.push(newObj);
   });
-
   return emailList;
 }
 
-console.log(createThankYouList(runners));
+const thankYouList = createThankYouList(runners, 100);
+console.log(thankYouList);
 
 // Problem 2
-// Create a new array that shows how many shirts to order for each size
-let shirtsToOrder = []
-runners.forEach(runner => {
-  orderObj = {}
-  let xxlCounter, xlCounter, lCounter, mCounter, sCounter, xsCounter = 0;
-  if (runner.shirt_size === '2XL') {
-    xxlCounter + 1;
-  } else if (runner.shirt_size === 'XL') {
-    xlCounter + 1;
-  } else if (runner.shirt_size === 'L') {
-    lCounter + 1;
-  } else if (runner.shirt_size === 'M') {
-    mCounter + 1;
-  } else if (runner.shirt_size === 'S') {
-    sCounter + 1;
-  } else if (runner.shirt_size === 'XS') {
-    xsCounter + 1;
+// The community center needs a way to get the total number of shirts by size to place shirt orders.
+const shirtsToOrder = createShirtOrder(runners);
+
+function createShirtOrder(arr) {
+  let shirts = {
+    xs: getShirts("XS"),
+    s: getShirts("S"),
+    m: getShirts("M"),
+    l: getShirts("L"),
+    xl: getShirts("XL"),
+    xxl: getShirts("2XL")
   }
-  console.log(orderObj);
-  return orderObj = {
-    XXL: xxlCounter,
-    XL: xlCounter,
-    L: lCounter,
-    M: mCounter,
-    S: sCounter,
-    XS: xsCounter
-  };
 
-});
+  function getShirts(size) {
+    return arr.filter(shirt => shirt.shirt_size === size).length;
+  }
+  return shirts;
+}
 
-
-
-
+console.log(shirtsToOrder);
 
 // Problem 3
+// Create a list of company's to thank them for their participation in the event sorted in alphabetical order.
+let companyList = runners.map(runner => runner.company_name).sort();
+console.log(companyList);
